@@ -1,1 +1,1 @@
-# erick_agrazal_laboratorio6_ejemplo
+# Ejemplo para desarrollar laboratorio #6
