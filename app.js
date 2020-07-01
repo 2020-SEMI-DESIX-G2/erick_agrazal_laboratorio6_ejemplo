@@ -16,15 +16,28 @@ app.set('views', './views');
 
 // Intermediarios
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 
 // Controladores - Templates
-app.get('/', async (req, res) => {
+app.get('/estudiantes', async (req, res) => {
     const estudiantes = await Estudiantes.find().select('nombre edad');
     res.render('estudiantes_list', { estudiantes });
 });
-app.get('/:id', async (req, res) => {
-    res.render('estudiantes');
+app.post('/estudiantes', async (req, res) => {
+    const { nombre, edad } = req.body;
+    await Estudiantes.create({ nombre, edad });
+    const estudiantes = await Estudiantes.find().select('nombre edad');
+    res.render('estudiantes_list', { estudiantes });
+});
+app.get('/estudiantes/:id', async (req, res) => {
+    try {
+        const estudiante = await Estudiantes.findById(req.params.id).select('nombre edad');
+        res.render('estudiantes_detail', { estudiante });
+    } catch (error) {
+        console.log(error);
+        res.send('Error');
+    }
 });
 
 

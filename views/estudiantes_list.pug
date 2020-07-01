@@ -6,12 +6,26 @@ html(lang="en")
         title Document
     body
         h1 Estudiantes
+        form(method="post")
+            label(for="nombre") Nombre: 
+            input(name="nombre", type="text")
+            br
+            label(for="edad") Edad: 
+            input(name="edad", type="text")
+            br
+            button(type="submit") Guardar
+        br
         table
             thead 
                 th Nombre
                 th Edad
+                th Eliminar
             tbody
                 each estudiante in estudiantes
                     tr
-                        td #{estudiante.nombre}
+                        td 
+                            a(href="/estudiantes/" + estudiante._id) #{estudiante.nombre}
                         td #{estudiante.edad}
+                        td
+                            a(href="#", data-id=estudiante._id) Eliminar
+        script.
